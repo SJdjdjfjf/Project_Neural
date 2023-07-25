@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Нейросети</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="cc753020-4b95-4edd-ac44-9887c2cea1c4" class="page sans"><header><h1 class="page-title">Нейросети</h1><p class="page-description"></p></header><div class="page-body"><ol type="1" id="dba86024-abf6-4f13-9e24-bdf2d62db5b3" class="numbered-list" start="1"><li>Введение в нейросети
+1.1 Определение нейросетей
+1.2 Исторический обзор развития нейросетей
+1.3 Принципы работы нейросетей</li></ol><ol type="1" id="e9644f70-e5f3-4460-bfba-1d6ea4601bcb" class="numbered-list" start="2"><li>Структура нейросетей
+2.1 Искусственные нейроны
+2.2 Слои нейросетей
+2.3 Архитектуры нейросетей
+2.3.1 Однослойные персептроны
+2.3.2 Многослойные персептроны
+2.3.3 Рекуррентные нейронные сети
+2.3.4 Сверточные нейронные сети
+2.3.5 Глубокие нейронные сети</li></ol><ol type="1" id="6b51b766-d3d6-4a82-abc6-aef93005d72a" class="numbered-list" start="3"><li>Обучение нейросетей
+3.1 Задача обучения нейросетей
+3.2 Функция потерь и оптимизация
+3.3 Алгоритм обратного распространения ошибки
+3.4 Регуляризация и предотвращение переобучения
+3.5 Техники и подходы к обучению нейросетей</li></ol><ol type="1" id="8d2f4818-9c8c-4cb3-a768-37583a116b0f" class="numbered-list" start="4"><li>Применение нейросетей
+4.1 Классификация и распознавание образов
+4.2 Регрессия и предсказание
+4.3 Обработка естественного языка
+4.4 Компьютерное зрение и обработка изображений
+4.5 Автоматическое обучение и усиление</li></ol><ol type="1" id="c077c0df-62ea-4cdc-9c7d-37c3e6a1c498" class="numbered-list" start="5"><li>Преимущества и ограничения нейросетей
+5.1 Преимущества использования нейросетей
+5.2 Ограничения и проблемы нейросетей
+5.3 Этические и социальные вопросы</li></ol><ol type="1" id="c06b794b-385a-4922-b463-c642f1be4b30" class="numbered-list" start="6"><li>Тенденции и будущее нейросетей
+6.1 Развитие и современные достижения
+6.2 Искусственный интеллект и нейросети
+6.3 Перспективы и направления развития</li></ol><ol type="1" id="c380330b-a29a-475f-871f-680b82a919f8" class="numbered-list" start="7"><li>Заключение</li></ol><ol type="1" id="a2ef6210-e9e8-4a47-9859-bea2aa225849" class="numbered-list" start="8"><li>Список литературы</li></ol><ol type="1" id="d6e7eaf1-ea2a-47db-b2c4-fcefc7681358" class="numbered-list" start="9"><li>Приложения
+9.1 Распознавание образов
+9.2 Улучшение качества изображений<p id="0749ce93-98f9-4a5c-af1e-398cc5cb5ee0" class="">9.3 Изображения созданные нейросетью и запросы к ним</p><p id="a725c5bb-f17b-4d83-960b-fd1d5a007f0e" class="">9.3.1 Тропический дом</p><p id="a3e1dccc-dd4b-4eaf-8a32-4206c19531cc" class="">9.3.2 Сладкий салат</p><p id="54f85d1a-d263-410e-847f-f98f564ac995" class="">9.3.3 Комноты в стиле Вилли Вонки</p></li></ol><p id="0e6f995e-37d7-4cea-8e39-2f1086c9fd36" class="">1. Введение в нейросети:</p><p id="b968b1b7-ca7b-4b24-86e8-662cb899e8d6" class="">Нейросети, также известные как искусственные нейронные сети (ИНС), представляют собой сложные модели машинного обучения, которые пытаются эмулировать работу человеческого мозга. Они используются для решения многих задач, включая классификацию, регрессию, обработку естественного языка, компьютерное зрение и многое другое. Нейросети состоят из множества связанных между собой искусственных нейронов, которые передают информацию друг другу, имитируя работу синапсов в человеческом мозге. Более того, нейросети могут обучаться на больших наборах данных, что позволяет им улучшать свои результаты с течением времени. Это делает их идеальными для использования в областях, где требуется обработка больших объемов информации, таких как медицинские исследования, финансовый анализ, прогнозирование погоды и многие другие.</p><p id="6505bcf2-01c8-4061-ad20-b87e0cec7614" class="">1.1 Определение нейросетей</p><p id="b22af270-8946-48e7-a961-77e56efd558f" class="">Нейросеть - это мощный инструмент, используемый для машинного обучения. Она состоит из множества искусственных нейронов, которые соединены между собой и работают вместе, как единое целое. Каждый нейрон получает входные данные, проводит вычисления и передает результат следующим нейронам в сети. Именно благодаря такому сложному взаимодействию между нейронами, нейросеть может &quot;обучаться&quot; на основе предоставленных ей данных.</p><p id="8a4b97a8-adc4-4b8e-9e00-de0979a39b44" class="">Нейроны в нейросети организованы в слои: входной слой, скрытые слои (если они есть) и выходной слой. Входной слой получает входные данные, которые затем передаются на скрытые слои, где выполняются промежуточные вычисления. Затем результаты передаются на выходной слой, который возвращает конечный результат.</p><p id="d90e37bd-8e00-4bae-96f7-7344e69770f7" class="">Хотя определение нейросетей может показаться сложным, на самом деле это очень мощный инструмент, который может использоваться для решения различных задач, таких как распознавание образов, классификация данных и прогнозирование результатов.</p><p id="745c4134-fffe-4528-bcfe-d59c16c5e596" class="">1.2 Исторический обзор развития нейросетей</p><p id="26f1a24a-5ea5-49b8-993c-c4f5e77db26f" class="">Начало развития нейросетей приходится на середину 20-го века. В 1943 году Уоррен МакКаллок и Уолтер Питтс предложили первую модель искусственного нейрона, который был назван &quot;МакКаллок-Питтс-нейрон&quot;. В 1950-х и 1960-х годах появились первые модели нейронных сетей, такие как персептрон Розенблатта.</p><p id="ada3066f-b7a7-4f92-89d9-723cec27a880" class="">Однако, развитие нейросетей не остановилось на этом. В 1970-х годах появились более сложные модели нейронных сетей, которые могли обрабатывать более сложные задачи. В 1980-х годах появились алгоритмы обучения, которые позволили нейронным сетям обучаться на больших объемах данных.</p><p id="7bfee6ad-e880-4a77-bd96-82da778b5a2d" class="">Сегодня нейросети используются в различных областях, таких как обработка естественного языка, компьютерное зрение, распознавание речи, медицина и многих других областях. Благодаря нейросетям, у нас есть возможность решать задачи, которые раньше казались невозможными.</p><p id="7281b795-6e6f-4c3a-b3aa-1917c81267af" class="">Однако в конце 1960-х годов исследования в области нейросетей замедлились, и многие исследователи обратили внимание на другие методы машинного обучения. Возрождение нейронных сетей произошло в 1980-х годах с появлением алгоритма обратного распространения ошибки, который позволил эффективно обучать глубокие нейронные сети. С тех пор нейросети стали активно развиваться, и в последние годы они стали основным инструментом в области искусственного интеллекта.</p><p id="ab10fa92-fa56-43ec-a926-9d1715539f55" class="">1.3 Принципы работы нейросетей</p><p id="c45b421b-e45d-4f14-b841-8934b8cd2326" class="">Нейронные сети работают путем передачи информации через слои нейронов, применяя линейные и нелинейные преобразования. Процесс работы нейросети включает в себя следующие основные шаги:</p><ol type="1" id="e71897d4-64d0-4cc7-916f-f2857e7366e5" class="numbered-list" start="1"><li>Подготовка данных: Входные данные должны быть предварительно обработаны и преобразованы в формат, подходящий для использования нейросетью. Это может включать нормализацию, кодирование категориальных признаков и разделение на обучающую и тестовую выборки.</li></ol><ol type="1" id="80b69960-0c7d-4cfd-a59e-aadeb19a6642" class="numbered-list" start="2"><li>Определение архитектуры нейросети: Нужно определить структуру нейросети, включая количество слоев, количество нейронов в каждом слое и типы активации.</li></ol><ol type="1" id="31c94e06-f3bb-46af-ab92-d268e4ae5673" class="numbered-list" start="3"><li>Процесс обучения: В процессе обучения нейросети на основе обучающих данных корректируются веса связей между нейронами. Обычно применяется алгоритм обратного распространения ошибки, который минимизирует разницу между прогнозируемыми и фактическими значениями.</li></ol><ol type="1" id="319ee979-20b5-4aba-a43d-4a0be3dab302" class="numbered-list" start="4"><li>Прогнозирование: После завершения обучения нейросеть может быть использована для прогнозирования результатов на новых данных. Входные данные пропускаются через сеть, и выходной слой предоставляет прогнозные значения.</li></ol><p id="22a7d685-13a1-4c41-bcf7-18c8a5309a43" class="">2. Структура нейросетей:</p><p id="2e774a3c-a879-48e0-acc7-4951ea38a282" class="">2.1 Искусственные нейроны.</p><p id="80f560d9-d083-4ecf-b2a2-053b12bcce0f" class="">Искусственные нейроны - это ключевые элементы нейросетей, которые моделируют функциональность биологических нейронов и выполняют вычисления над входными данными. В то время как биологические нейроны имеют множество входов и выходов, каждый искусственный нейрон имеет набор входов, весов и функцию активации, которые определяют его поведение.</p><p id="67dd80f6-3aff-4ac9-8544-e81de0b7b8db" class="">Веса искусственного нейрона управляют вкладом, который каждый вход вносит в итоговый выход, а функция активации определяет, какой выходной сигнал будет сгенерирован на основе входных данных и их весов. Эти компоненты работают вместе для создания выходного значения, которое может быть использовано для определения следующих шагов в нейросети.</p><p id="cde07533-86dd-44d9-a00e-0c002da6598c" class="">Важно отметить, что искусственные нейроны могут иметь множество входных данных, которые могут быть связаны с различными типами весов и функций активации, что позволяет им выполнять разнообразные задачи, включая классификацию, прогнозирование и распознавание образов. Таким образом, искусственные нейроны играют важную роль в построении эффективных нейросетей, которые могут решать сложные задачи в различных областях.</p><p id="361026a3-01fd-441c-9f58-dd20296b60b2" class="">2.2 Слои нейросетей</p><p id="230b089f-7d76-47d8-8062-a01742065c9b" class="">Нейросети организованы в слои, которые являются группами нейронов. Слои следуют друг за другом, принимая входные данные и вычисляя промежуточные значения до получения окончательного результата. Типы слоев в нейросетях могут различаться в зависимости от архитектуры сети. Некоторые распространенные типы слоев включают входной слой, скрытые слои и выходной слой.</p><ul id="6b3b9431-7fa1-408a-a8fb-f8f58971040d" class="bulleted-list"><li style="list-style-type:disc">Входной слой: Это первый слой нейросети, который принимает входные данные и передает их дальше для обработки. Количество нейронов во входном слое соответствует размерности входных данных.</li></ul><ul id="029e9d8d-8e7c-4c80-b36a-4cf5e3d6b934" class="bulleted-list"><li style="list-style-type:disc">Скрытые слои: Это слои, которые находятся между входным и выходным слоями. Скрытые слои выполняют промежуточные вычисления, обрабатывая информацию, полученную от предыдущего слоя. Количество и размерность скрытых слоев может варьироваться в зависимости от архитектуры нейросети.</li></ul><ul id="7d4cd4fa-744c-49fd-96f0-48a74b55b990" class="bulleted-list"><li style="list-style-type:disc">Выходной слой: Это последний слой нейросети, который возвращает окончательный результат или прогноз. Количество нейронов в выходном слое зависит от типа задачи, например, для задачи классификации количество нейронов может соответствовать количеству классов, а для задачи регрессии может быть один нейрон.</li></ul><p id="079d970d-e507-409d-874c-cc44599fd316" class="">Первый слой нейросети - это входной слой, который принимает входные данные и передает их дальше для обработки. Количество нейронов во входном слое соответствует размерности входных данных. Следующий тип слоя - это скрытые слои, которые находятся между входным и выходным слоями. Скрытые слои выполняют промежуточные вычисления, обрабатывая информацию, полученную от предыдущего слоя. Количество и размерность скрытых слоев может варьироваться в зависимости от архитектуры нейросети. Наконец, последний слой нейросети - это выходной слой, который возвращает окончательный результат или прогноз. Количество нейронов в выходном слое зависит от типа задачи, например, для задачи классификации количество нейронов может соответствовать количеству классов, а для задачи регрессии может быть один нейрон.</p><p id="ede9bff6-9061-487e-84d5-f2db48078cf6" class="">2.3 Архитектуры нейросетей</p><p id="3e99b979-8492-47c2-a54f-54d0b74bd84b" class="">Существует несколько различных архитектур нейросетей, которые применяются в различных задачах машинного обучения. Некоторые из наиболее распространенных архитектур включают:</p><p id="68bafd79-1c12-483f-a37e-0e570ed2a696" class="">2.3.1 Однослойные персептроны: Однослойные персептроны - это один из видов искусственных нейронных сетей, состоящих из одного слоя нейронов, включая входной и выходной слои. Они используются для простых задач бинарной классификации, когда данные линейно разделимы. Однако, хотя однослойные персептроны достаточно просты и эффективны в решении задач с линейной разделимостью, они не могут решать более сложные задачи, такие как классификация в случае, когда данные не являются линейно разделимыми. Для этого используются многослойные персептроны, которые состоят из нескольких слоев нейронов и могут выдавать более сложные ответы на входные данные. Однако, следует отметить, что многослойные персептроны могут быть более сложными в обучении и требовать большего количества данных для достижения хороших результатов.</p><p id="e1a71306-be08-475e-9b12-cfed5f56fa09" class="">2.3.2 Многослойные персептроны: Многослойные персептроны (MLP) являются типом нейронных сетей, которые имеют один или более скрытых слоев между входным и выходным слоями. Эти слои позволяют MLP решать более сложные задачи, такие как классификация и регрессия, чем однослойные персептроны. Например, MLP могут использоваться для определения образца на изображении, распознавания речи и предсказания цены на акции. Возможности MLP как универсальных аппроксиматоров позволяют им адаптироваться к различным типам данных и задач, что делает их очень мощным инструментом в машинном обучении и искусственном интеллекте.</p><p id="cfeabad1-0a4b-4b6d-9a84-6036168c4ea9" class="">2.3.3 Рекуррентные нейронные сети: Рекуррентные нейронные сети (RNN) имеют обратные связи между нейронами, что позволяет им обрабатывать последовательности и учитывать контекст. Это означает, что RNN могут анализировать данные в контексте, что делает их особенно эффективными в задачах обработки естественного языка, временных рядов и многих других задачах, где присутствует последовательность данных.</p><p id="bf58f75f-ea1e-4c40-a2b1-74dcd83199c8" class="">Например, RNN могут использоваться для анализа последовательностей слов в предложении, чтобы определить их смысл и контекст. Они также могут быть применены для анализа временных рядов, таких как изменения цен на акции, прогнозирования изменения погоды и т.д.</p><p id="cd1b5248-f3ac-44f4-a1c8-d7081c26ce59" class="">Кроме того, RNN могут быть использованы для обработки последовательностей изображений, где каждый пиксель в изображении рассматривается как последовательность. Это может быть полезно, например, для распознавания рукописного текста или классификации изображений на основе последовательности пикселей.</p><p id="263d6f40-de14-4cdf-b009-43021741bc09" class="">2.3.4 Сверточные нейронные сети: Сверточные нейронные сети (CNN) являются одними из самых эффективных сетей для анализа данных с пространственной структурой, таких как изображения. Они используют свертки и пулинг для извлечения локальных особенностей из входных данных, что позволяет им работать с данными большого объема и сложной структуры. Кроме того, они могут использоваться для обработки видео и звуковых данных, что делает их универсальными в различных областях, включая медицину, автомобильную промышленность и многие другие.</p><p id="d78eb4ac-9f3b-4c34-8185-01d410aed28f" class="">2.3.5 Глубокие нейронные сети: Глубокие нейронные сети (DNN) представляют собой нейросети, которые используют несколько скрытых слоев для обработки информации. Эта уникальная архитектура позволяет глубоким нейронным сетям моделировать сложные зависимости в данных, что делает их очень эффективными для выполнения различных задач. Например, глубокие нейронные сети могут использоваться для распознавания образов, обработки естественного языка и многих других задач. Более того, они могут достичь высокой точности в выполнении этих задач, что делает их одними из самых мощных инструментов для обработки информации в нашем распоряжении.</p><ol type="1" id="2fb24982-e0f6-475c-9459-ab128c16a6da" class="numbered-list" start="3"><li>Обучение нейросетей:</li></ol><p id="77bbb84c-1824-42af-baed-f174f3ebacc2" class="">3.1 Задача обучения нейросетей</p><p id="be01b64c-1c96-4fde-8705-53b8ffc4cece" class="">Основная задача обучения нейросетей заключается в том, чтобы разработать оптимальную модель, которая сможет обобщать и делать точные прогнозы на новых данных. В этом процессе нейросеть настраивает веса и параметры на основе обучающих данных, а функция потерь измеряет разницу между прогнозируемыми значениями нейросети и фактическими значениями. Обучение нейросетей является важным инструментом машинного обучения, которое находит широкое применение во многих областях, таких как распознавание образов, обработка естественного языка и компьютерное зрение.</p><p id="21e4fb5a-67b5-4f21-a380-80b498baf68a" class="">3.2 Функция потерь и оптимизация</p><p id="4e2eb4a5-0ea9-4ceb-8a04-13eef4cb63ff" class="">Нейросеть использует функцию потерь (или целевую функцию), чтобы оценить ошибку между ее прогнозами и фактическими значениями. Цель заключается в том, чтобы минимизировать эту функцию и уменьшить ошибку. Для различных задач, таких как классификация и регрессия, существуют различные функции потерь, которые могут быть использованы.</p><p id="a28e3d96-37bd-462c-b81d-e1a2ed2bc9e3" class="">При выборе функции потерь необходимо учитывать оптимизацию. Оптимизация состоит в том, чтобы найти набор весов и смещений, который дает наименьшее значение функции потерь. Существуют различные методы оптимизации, такие как градиентный спуск и стохастический градиентный спуск, которые могут быть использованы для нахождения оптимальных весов и смещений.</p><p id="ba5b1329-09f6-4b32-9d09-61e8ff66e746" class="">Оптимизация используется для настройки весов и параметров нейросети с целью минимизации функции потерь. Часто применяются методы градиентного спуска, которые на каждом шаге обновляют веса в направлении, противоположном градиенту функции потерь.</p><p id="0cb3ca81-0523-4d99-a77f-d592e9b1588a" class="">3.3 Алгоритм обратного распространения ошибки</p><p id="982cc2c1-67af-422e-b558-38b49463b0f9" class="">Алгоритм обратного распространения ошибки, также известный как backpropagation, является одним из основных методов обучения нейронных сетей. Он использует цепное правило дифференцирования для вычисления градиента функции потерь по весам нейросети. Это позволяет оптимизационному алгоритму обновлять веса и достигать минимума функции потерь.</p><p id="01cac6ea-7c32-45f6-b742-c87f8daaee4f" class="">Алгоритм обратного распространения ошибки состоит из двух этапов: прямое распространение (forward propagation), в котором данные проходят через нейронную сеть и генерируются прогнозы, и обратное распространение, в котором градиенты вычисляются и веса обновляются.</p><p id="12833849-5387-48f3-988a-d8cc95b3983c" class="">Обратное распространение ошибки – это итерационный процесс, который выполняется многократно. В каждой итерации алгоритм принимает на вход набор данных и стремится уменьшить ошибку предсказания. После каждой итерации веса нейронной сети обновляются, и процесс повторяется до тех пор, пока не будет достигнута приемлемая точность предсказания.</p><p id="dc904526-36bd-4f9a-a657-1cd516396570" class="">Таким образом, алгоритм обратного распространения ошибки является мощным инструментом для обучения нейронных сетей. Он позволяет нейросети обучаться на больших объемах данных и достигать высокой точности предсказания.</p><p id="4e394c9b-f727-459e-96c4-b6110c4af8e5" class="">3.4 Регуляризация и предотвращение переобучения</p><p id="63e8a08a-c760-4d98-85f1-cb6924b621d8" class="">Переобучение - это распространенная проблема в нейросетях, когда они показывают хорошие результаты на обучающих данных, но не могут обобщать на новые данные. Регуляризация - это метод борьбы с переобучением, который позволяет модели лучше обобщать на новые данные. Один из наиболее распространенных методов - это L2-регуляризация (гребневая регрессия), которая добавляет штраф за большие значения весов к функции потерь.</p><p id="a59a2640-72aa-4265-b1eb-dd21d71f7251" class="">Кроме того, существуют другие методы регуляризации, такие как отсев (dropout), который случайным образом отключает некоторые нейроны во время обучения, и ранняя остановка (early stopping), которая прекращает обучение, когда ошибка на валидационной выборке перестает улучшаться. Важно понимать, что использование различных методов регуляризации может повлиять на качество модели, поэтому необходимо тщательно выбирать методы в зависимости от конкретной задачи.</p><p id="e18b7658-e693-4bad-8f36-4c51afffc597" class="">3.5 Техники и подходы к обучению нейросетей</p><p id="7beb76f4-4719-4e8a-8ae6-0e7a85355677" class="">Существует множество техник и подходов, которые могут быть применены для более эффективного обучения нейросетей. В данном разделе мы рассмотрим наиболее эффективные из них.</p><p id="144c5ff1-b13d-48b5-82a1-bea325822f46" class="">Одной из таких техник является нормализация данных. Нормализация входных данных может помочь ускорить обучение и улучшить стабильность нейросети. Например, если входные данные имеют различный масштаб, то процесс обучения замедляется, поскольку веса сети необходимо корректировать для каждого признака. Нормализация входных данных позволяет решить эту проблему, что ускоряет обучение и улучшает качество модели.</p><p id="4b138d27-ac13-4b73-a2fb-fd328e6d0a3f" class="">Инициализация весов нейросети является важным фактором для успешного обучения. Различные стратегии инициализации, такие как случайная инициализация и инициализация на основе распределений, могут быть использованы. Например, инициализация на основе нормального распределения может быть эффективна для нейросетей с большим количеством скрытых слоев.</p><p id="60d8553a-01c3-47aa-bfe0-dc2a248adeda" class="">Методы оптимизации также играют важную роль в обучении нейросетей. Кроме градиентного спуска, существуют различные методы оптимизации, такие как стохастический градиентный спуск (SGD), адам (Adam), адаград (Adagrad) и другие, которые могут обеспечить более эффективную сходимость.</p><p id="0b072627-5eff-436b-a7d9-c41a2db297ec" class="">Еще одной техникой, которая может быть применена для более эффективного обучения нейросетей, является аугментация данных. Аугментация данных представляет собой применение случайных преобразований к обучающим данным, таким образом, что каждый эпохе обучения представляет новые примеры. Это может помочь увеличить разнообразие данных, что в свою очередь помогает уменьшить переобучение.</p><p id="5dd4f56f-6e4b-41f5-9112-c6f7024c1f91" class="">Наконец, предобучение и передача обучения (transfer learning) являются методами, которые позволяют использовать предварительно обученные нейросети или их части для решения новых задач. Это особенно полезно, когда доступно ограниченное количество обучающих данных. Например, можно использовать нейросеть, которая была обучена на большом наборе данных для классификации изображений, для решения задачи распознавания объектов на изображениях с ограниченным количеством обучающих данных.</p><ol type="1" id="7f93e133-ad98-4d8a-970b-b3e6ee0d39bb" class="numbered-list" start="4"><li>Применение нейросетей:</li></ol><p id="f58ba632-94b8-4566-a96f-7c8b0a4604c4" class="">4.1 Классификация и распознавание образов:
+Нейронные сети широко применяются для решения задач классификации, которые возникают в различных областях. Классификация - это процесс определения категории или метки объекта на основе его признаков. Например, это может включать классификацию изображений, такую как распознавание лиц или классификация объектов на изображениях. Кроме того, нейронные сети могут использоваться для текстовой классификации, такой как определение тональности отзыва, или для классификации аудиозаписей. Нейронные сети также могут помочь в решении других задач, связанных с классификацией, и их применение находит все большее распространение в различных областях науки и техники.</p><p id="7065eb4a-aa72-4bfb-b032-b9a93951417c" class="">4.2 Регрессия и предсказание:</p><p id="4bfed16b-bc30-427a-80f2-adaee4e37b72" class="">Нейросети могут иметь множество применений в задачах регрессии, где необходимо предсказать непрерывное числовое значение. Одним из таких примеров может быть предсказание цен на недвижимость, где необходимо учитывать различные факторы, такие как местоположение, близость к школам и магазинам, наличие парков и т.д.</p><p id="49892d1a-a1b3-4da1-9af6-566c43b057b7" class="">Еще одной задачей, где нейросети могут быть полезными, является прогнозирование спроса на товары. Они могут учитывать множество факторов, таких как время года, погодные условия, экономические показатели и многое другое, чтобы предсказать спрос на определенный товар в определенное время.</p><p id="1e71642b-d1f1-469f-a1dc-1c665db21a56" class="">Нейросети могут быть использованы для прогнозирования временных рядов, таких как продажи, трафик, сезонные колебания и т.д. Они могут учитывать множество факторов, чтобы предсказать, какой будет спрос на определенный товар в определенное время года или как изменится трафик на дорогах в зависимости от времени суток.</p><p id="bd14731c-54e5-4092-956e-809f0fbfc9cc" class="">Нейросети могут использоваться в других задачах, где необходимо предсказать числовую величину на основе входных данных, например, в финансовой аналитике, медицинских исследованиях и многое другое.</p><p id="98729590-be52-4e1a-b10e-70d65aec697a" class="">4.3 Обработка естественного языка:
+Обработка естественного языка (Natural Language Processing, NLP) является важной областью искусственного интеллекта, которая включает анализ и генерацию текста с использованием нейронных сетей. Нейросети, используемые в NLP, имеют широкий спектр применения, включая задачи, такие как машинный перевод, распознавание речи, анализ тональности текста, суммаризация текста, ответы на вопросы и другие задачи, связанные с обработкой и пониманием естественного языка.</p><p id="9dbce30d-2625-4840-8bed-b999808e59f8" class="">Например, задача машинного перевода включает перевод текста из одного языка на другой с использованием нейросетей и обучающих данных. Анализ тональности текста включает определение тональности текста, например, положительной, отрицательной или нейтральной, для определенного набора текстовых данных. Суммаризация текста включает создание краткой сводки текста, которая содержит ключевые идеи и информацию, содержащуюся в оригинальном тексте.</p><p id="92fb90b8-2502-4846-97cf-edae12625e00" class="">В целом, обработка естественного языка является интенсивно развивающейся областью, которая играет важную роль в различных сферах, таких как медицина, банковское дело, право, наука и многих других.</p><p id="b70e2884-2770-466c-92ef-76b0047acc1d" class="">4.4 Компьютерное зрение и обработка изображений:</p><p id="37f5fdd5-9b07-40d4-82d7-ac2b2aaaf54c" class="">Нейросети имеют огромное применение в области компьютерного зрения. Они используются для решения многих задач, связанных с обработкой и анализом изображений. Например, они могут помочь в детекции объектов, сегментации изображений, классификации изображений, распознавании лиц и рукописного текста, а также в других задачах, которые связаны с обработкой изображений.</p><p id="602abbc4-3d2a-42d3-9ae7-6085202398e8" class="">Детекция объектов - это задача нахождения объектов на изображении и их локализации. Например, нейросеть может быть обучена находить автомобили или людей на фотографиях.</p><p id="06f7db75-5678-40bb-a23a-de13343504a1" class="">Сегментация изображений - это задача разделения изображения на сегменты или регионы, которые имеют схожие характеристики. Например, нейросеть может быть обучена выделять границы объектов на изображении.</p><p id="dd681134-e3a4-4da0-8718-71abd563687e" class="">Классификация изображений - это задача определения, к какому классу принадлежит изображение. Например, нейросеть может быть обучена классифицировать изображения животных на фотографиях.</p><p id="d8dfea8e-b954-4566-8362-0e4779b3ceee" class="">Распознавание лиц - это задача идентификации личности на фотографии или видео. Например, нейросеть может быть обучена распознавать лица на фотографиях и связывать их с определенными людьми.</p><p id="4ec6aa05-89ee-49ad-b6cc-661d5b0b9930" class="">Распознавание рукописного текста - это задача распознавания символов, написанных от руки. Например, нейросеть может быть обучена распознавать рукописные цифры на чеках или документах.</p><p id="8530f491-3f80-4e44-aade-49f57f85a9b3" class="">4.5 Автоматическое обучение и усиление:
+Нейросети находят широкое применение в области автоматического обучения и усиления (reinforcement learning), что позволяет им обучаться на основе обратной связи от среды и принимать последовательность действий для достижения определенной цели. Например, они могут использоваться для игрового обучения в играх, таких как Го или шахматы, где они учатся стратегиям и тактикам для выигрыша. Они также находят применение в управлении роботами, где они могут обучаться выполнению различных задач в зависимости от изменяющихся условий. Кроме того, нейросети могут быть использованы для оптимизации ресурсов и других задач, где необходимо принимать последовательные решения на основе обратной связи от внешней среды.</p><ol type="1" id="9787e947-ef41-4b91-82c3-4899d01fcd6e" class="numbered-list" start="5"><li>Преимущества и ограничения нейросетей:</li></ol><p id="8a4c0182-53e8-43a9-ada9-4914ef552afe" class="">5.1 Преимущества использования нейросетей:</p><ul id="d6246c5a-6442-438a-9a9e-7c4d7bebce69" class="bulleted-list"><li style="list-style-type:disc">Способность к обучению на больших объемах данных: Нейронные сети могут эффективно обрабатывать и анализировать большие объемы данных, что особенно полезно в задачах, требующих обучения на миллионах или даже миллиардах примеров. Таким образом, использование нейросетей позволяет получить более точные результаты и сократить время на обучение.</li></ul><ul id="2bba99ea-092f-47c2-b96f-07ef0d2d4513" class="bulleted-list"><li style="list-style-type:disc">Способность к обобщению: Нейросети могут обучаться на обучающих данных и обобщать полученные знания на новые, невиданные ранее данные. Это позволяет им делать точные прогнозы и классификации на новых примерах, что увеличивает их применимость в различных задачах.</li></ul><ul id="84e02d68-d922-4a46-9e60-12a5ad59b818" class="bulleted-list"><li style="list-style-type:disc">Автоматическое извлечение признаков: Нейросети могут автоматически извлекать и выделять важные признаки из входных данных, что освобождает от необходимости ручного определения признаков и позволяет им обрабатывать сложные иерархические структуры данных. Это, в свою очередь, увеличивает точность и скорость работы нейросетей.</li></ul><ul id="8a98a958-6b96-40e8-bcf8-c48e7c136781" class="bulleted-list"><li style="list-style-type:disc">Распознавание сложных образов: Нейросети могут эффективно распознавать сложные образы, включая изображения, речь и текст, благодаря своей способности выявлять детали и сложные зависимости в данных. Это делает их полезными для задач компьютерного зрения, обработки естественного языка и распознавания речи, что позволяет использовать нейросети в различных сферах деятельности, включая медицину, финансы и технологические разработки.</li></ul><p id="1c4aab39-739e-4fc0-928b-971bd5eb175e" class="">5.2 Ограничения и проблемы нейросетей:</p><p id="77bda655-4e2f-49f0-baf1-2ae62c7d50bc" class="">Хотя нейросети имеют множество преимуществ, они также имеют свои ограничения и проблемы, которые следует учитывать:</p><ul id="be86857f-a372-40cd-86db-89bc54b34516" class="bulleted-list"><li style="list-style-type:disc">Необходимость больших объемов данных: Нейронные сети требуют большого количества обучающих данных для достижения хорошей производительности. Если доступных данных недостаточно, нейросети могут страдать от недообучения или переобучения. В этом случае, можно попробовать применить различные методы дополнения данных, такие как аугментация, для улучшения качества обучения нейросети.</li></ul><ul id="26bcbea2-5919-42c6-ab65-9326dbec6283" class="bulleted-list"><li style="list-style-type:disc">Вычислительная сложность: Обучение и использование больших нейросетей может требовать значительных вычислительных ресурсов, включая высокопроизводительные графические процессоры (GPU) или специализированные аппаратные ускорители. Это может быть ограничивающим фактором для некоторых приложений. Однако, существуют различные методы оптимизации, такие как уменьшение размерности нейросети, которые могут существенно снизить вычислительную сложность.</li></ul><ul id="1afbb55b-4b77-41ee-b600-088f4870d7a2" class="bulleted-list"><li style="list-style-type:disc">Интерпретируемость: Нейросети могут быть сложными для интерпретации, особенно при использовании глубоких нейронных сетей. Их внутренние процессы и принимаемые решения могут быть непрозрачными, что ограничивает понимание того, как и почему они делают определенные выводы. Но можно использовать методы визуализации, такие как Grad-CAM, для того, чтобы получить более глубокое понимание того, как модель работает.</li></ul><ul id="cb2761d3-6b26-43e8-9a30-2958a2dac981" class="bulleted-list"><li style="list-style-type:disc">Неустойчивость к шуму и атакам: Нейронные сети могут быть чувствительны к шуму в данных или целенаправленным атакам, которые могут привести к искажению результатов или обману системы. Для более надежной работы модели можно использовать методы детектирования выбросов, такие как Local Outlier Factor, а также различные методы защиты от атак, такие как adversarial training и атака белого ящика.</li></ul><p id="67e60c0e-77d4-4bcf-86fd-5f13dbfbab41" class="">5.3 Этические и социальные вопросы:</p><ul id="b0d0f38c-1041-4dbd-92fe-f588a5e9c7ca" class="bulleted-list"><li style="list-style-type:disc">Проблема объяснимости: Сложность и непрозрачность нейронных сетей создают этические и социальные вопросы о том, как объяснить и обосновать принимаемые ими решения. Это особенно важно в критических областях, таких как медицина и правосудие.</li></ul><p id="6af039f1-b047-46b2-b9f5-bca058d83ca8" class="">Для решения этой проблемы необходимо разрабатывать методы интерпретации работы нейронных сетей, которые позволят на основе их выводов объяснить, как они пришли к определенному решению. Такой подход позволит не только избежать непрозрачности, но и повысит доверие к нейросетям.</p><ul id="9ce7c3b3-a3f5-4d93-bfaf-5dc6ee2f3b40" class="bulleted-list"><li style="list-style-type:disc">Проблема предвзятости: Нейросети могут быть подвержены предвзятости, основанной на обучающих данных, что может привести к неравенству и дискриминации. Необходимы меры для обнаружения и устранения такой предвзятости.</li></ul><p id="0b8e8f84-222c-4730-97ea-bb9811ab7580" class="">Для решения этой проблемы необходимо проводить анализ обучающих данных и выявлять их потенциальную предвзятость. При обнаружении таких ситуаций необходимо корректировать данные и переобучать нейросеть. Также можно использовать методы, которые позволяют сделать нейросеть более устойчивой к предвзятости.</p><ul id="09e6e0de-e895-4295-9b65-d58383155eee" class="bulleted-list"><li style="list-style-type:disc">Конфиденциальность и безопасность: С использованием нейросетей возникают вопросы конфиденциальности и безопасности данных. Сети могут хранить и обрабатывать большие объемы личных данных, и необходимо принимать меры для защиты этих данных от несанкционированного доступа или злоупотребления.</li></ul><p id="5962a45e-8539-41c6-a019-1f59825a8781" class="">Для решения этой проблемы необходимо использовать современные методы шифрования данных и механизмы контроля доступа, которые позволят защитить личные данные от несанкционированного доступа. Также можно использовать методы анонимизации данных, чтобы предотвратить их использование в коммерческих целях.</p><ul id="fbc6418b-6110-4bf7-8abf-529efdd0d45e" class="bulleted-list"><li style="list-style-type:disc">Работа и автоматизация: Применение нейросетей может иметь влияние на рынок труда и автоматизацию. Некоторые рабочие места могут стать устаревшими или заменены автоматическими системами, что может вызвать социальные и экономические проблемы.</li></ul><p id="fb8d320e-4e60-4f4f-a437-d580ca087370" class="">Для решения этой проблемы необходимо проводить анализ воздействия применения нейросетей на рынок труда и экономику. Также необходимо разрабатывать программы переобучения и подготовки кадров, чтобы люди могли адаптироваться к новым условиям работы и использовать новые технологии в своей работе.</p><ol type="1" id="e246d3fa-b696-4e3e-a0bf-df37d5482e68" class="numbered-list" start="6"><li>Тенденции и будущее нейросетей</li></ol><p id="87580554-fbb1-499b-8196-0cd870847236" class="">6.1 Развитие и современные достижения:</p><p id="7704aa4a-dea5-4bf4-aa6a-befacade4c57" class="">В последние годы нейросети стали ключевой технологией в области искусственного интеллекта. Были достигнуты значительные прорывы в областях компьютерного зрения, обработки естественного языка, речи и других областях. Нейросети на основе глубокого обучения показали выдающуюся производительность во многих сложных задачах, ранее считавшихся трудными для автоматизации.</p><p id="3053c783-9daa-4733-9dbb-7c26125dcc32" class="">Например, в области компьютерного зрения нейросети позволяют распознавать объекты на изображениях с невероятной точностью. Они могут использоваться для автоматической обработки медицинских изображений, что помогает врачам быстрее и точнее диагностировать заболевания. В области обработки естественного языка нейросети могут использоваться для создания более эффективных и точных систем перевода и распознавания речи. Это может быть особенно полезно для людей, изучающих иностранные языки или для тех, кто имеет проблемы со слухом.</p><p id="b1f6b351-3962-48b0-b2c4-badf0c7df6d9" class="">Нейросети также могут использоваться для анализа больших объемов данных и выявления скрытых закономерностей. Это может быть полезно для различных отраслей, таких как маркетинг, финансы и наука. Они могут помочь компаниям принимать более обоснованные решения на основе данных и улучшать производительность и эффективность своих бизнес-процессов.</p><p id="405b5b7a-4fa6-4478-8a8b-adda5dc3092f" class="">Таким образом, нейросети на основе глубокого обучения представляют огромный потенциал для автоматизации сложных задач и улучшения производительности и эффективности в различных областях.</p><p id="23f797cd-4af0-416c-b52c-acdac1535b05" class="">6.2 Искусственный интеллект и нейросети:
+Нейросети являются фундаментом искусственного интеллекта (ИИ). Они позволяют создавать сложные системы, которые способны распознавать образы, понимать и генерировать текст, обрабатывать и анализировать данные. Но насколько важны нейросети на самом деле?
+Взглянем на это подробнее. Нейросети играют важную роль в автоматизации, робототехнике, автономных системах, медицине и многих других отраслях. Они используются для обработки данных, создания моделей и решения сложных задач, которые ранее не могли быть решены. Благодаря нейросетям, наука и технологии продолжают развиваться и улучшаться, открывая новые возможности для людей по всему миру.</p><p id="2913e4a9-9e7e-49af-870b-ad1631c3484b" class="">6.3 Перспективы и направления развития:</p><ul id="4156edc3-91e7-4aac-b47a-0135dbc7c7a1" class="bulleted-list"><li style="list-style-type:disc">Обучение с малым количеством примеров: Развитие методов обучения с малым количеством данных станет важным в будущем, чтобы нейросети могли обучаться на основе ограниченных объемов данных. Это расширит их применимость в различных областях, таких как медицина, финансы и многое другое.</li></ul><ul id="5c0619fa-0d8d-447d-b3ac-426080b556e8" class="bulleted-list"><li style="list-style-type:disc">Обучение с подкреплением: Улучшение алгоритмов обучения с подкреплением позволит нейросетям достигать более сложных целей и осуществлять более сложные последовательные действия в реальном мире. Например, нейросети могут использоваться для разработки автономных роботов, которые могут выполнять сложные задачи, такие как управление многоквартирным домом или выполнение сложных манипуляций в промышленном процессе.</li></ul><ul id="d8615a30-f1b8-4891-a663-ac204bd31b2f" class="bulleted-list"><li style="list-style-type:disc">Мультизадачное обучение: Развитие методов мультизадачного обучения позволит нейросетям решать сразу несколько связанных задач, что повысит их эффективность и универсальность. Например, нейросети могут использоваться для решения задачи распознавания речи и задачи обработки естественного языка в одной системе.</li></ul><ul id="adb93963-b78e-443c-a8d0-019e599092b7" class="bulleted-list"><li style="list-style-type:disc">Объединение различных модалей: Интеграция нейросетей с различными модальностями (например, видео, звук, текст) позволит создавать более комплексные системы, способные работать с разнообразными типами данных. Это может привести к созданию новых типов приложений, таких как системы автоматического перевода, которые могут работать с различными языками и типами данных.</li></ul><ul id="b04006ce-5521-4c5d-8c04-b70b4fb6922c" class="bulleted-list"><li style="list-style-type:disc">Эффективность и оптимизация: Развитие методов оптимизации и аппаратных средств позволит создавать более эффективные и быстрые нейросети, которые могут работать в реальном времени и на мобильных устройствах. Это может привести к созданию новых приложений, таких как приложения для мониторинга здоровья на основе носимых устройств.</li></ul><ul id="11a8a4f9-8be6-4f3c-a02b-d5a950287206" class="bulleted-list"><li style="list-style-type:disc">Этические и социальные аспекты: Важно продолжать исследования и обсуждения этических и социальных вопросов, связанных с использованием нейросетей, и разрабатывать регулирования и стандарты для их использования. Например, нейросети могут использоваться для принятия решений в кредитной отрасли, что может привести к возникновению этических вопросов. Также важно учитывать социальные аспекты, такие как защита личной жизни и защита от дискриминации при использовании нейросетей.</li></ul><ol type="1" id="fe60fccc-7965-41b5-8ad7-c61f4d2f6e18" class="numbered-list" start="7"><li>Заключение</li></ol><p id="01bb182d-3b6e-451a-bda6-c58d2da1f78b" class="">В заключении, нейросети являются одним из самых мощных инструментов в области искусственного интеллекта. Они находят применение в широком спектре задач, таких как классификация, распознавание образов, регрессия, обработка естественного языка, компьютерное зрение и многие другие. Однако, несмотря на все их преимущества, нейросети также имеют определенные ограничения и вызывающие вопросы аспекты.</p><p id="f8119826-1848-43a9-aa55-f00cb78e6e54" class="">Для того, чтобы успешно использовать нейросети, необходимо тщательно подготовить данные, правильно выбрать архитектуру, провести оптимизацию и обеспечить этичное и ответственное использование. Кроме того, важно помнить о социальных и этических вопросах, связанных с использованием нейросетей.</p><p id="128b721e-518e-48d8-ba78-4f3cb23dcff5" class="">Тем не менее, нейросети продолжают развиваться, и появляются новые архитектуры и методы обучения, которые позволяют решать еще более сложные задачи. Безусловно, нейросети будут продолжать привлекать внимание и использоваться во многих областях, внося важный вклад в развитие и прогресс.</p><p id="23b0cd2d-90e8-4e25-9b96-38b751dceeb4" class="">В заключение, можно сказать, что нейросети - это не просто современный инструмент, но и перспективный инструмент, который имеет широкое применение и огромный потенциал для развития.</p><p id="4d694563-e2ba-4395-ab17-b3e0b023d30e" class=""> 8. Список литературы:</p><ol type="1" id="37941b92-7e36-44d9-81de-a490acbf8c20" class="numbered-list" start="1"><li>Гудфеллоу Я., Бенджио И., Курвилль А. Глубокое обучение. - М.: ДМК Пресс, 2017.</li></ol><ol type="1" id="ba7f39eb-6ac5-4efc-ac2b-1e4e97bba3e0" class="numbered-list" start="2"><li>Нильсон Н. Искусственный интеллект: современный подход. - М.: Вильямс, 2006.</li></ol><ol type="1" id="e2815040-2427-4355-85fc-91056ec13257" class="numbered-list" start="3"><li>Свирин В.И. Нейросетевые технологии в системах управления сложных объектов. - М.: ИПРЖР, 2002.</li></ol><ol type="1" id="1203eeb6-6c7d-4999-a50e-03165aa7df2e" class="numbered-list" start="4"><li>Хайкин С. Нейронные сети: полный курс. - М.: Издательский дом &quot;Вильямс&quot;, 2006.</li></ol><ol type="1" id="f250cce0-d3c3-4488-99ba-7c4e75af1ba8" class="numbered-list" start="5"><li>Шолле Ф. Глубокое обучение на Python. - СПб.: Питер, 2018.</li></ol><ol type="1" id="f9c7452a-6de7-4b8a-a8b5-a8395e213da3" class="numbered-list" start="6"><li>Артемов И. Введение в нейросетевые методы обработки информации. - М.: ИПРЖР, 2000.</li></ol><ol type="1" id="eb2f3552-8ba9-4f50-8277-29fa6d495057" class="numbered-list" start="7"><li>Барский А.Б. Нейронные сети: распознавание, управление, принятие решений. - М.: Финансы и статистика, 2004.</li></ol><ol type="1" id="4c0e0300-3fc3-47d7-94d0-5bb59b8d94a0" class="numbered-list" start="8"><li>Вороновский Г.К. Генетические алгоритмы, искусственные нейронные сети и проблемы виртуальной реальности. - Харьков: ОСНОВА, 1997.</li></ol><ol type="1" id="60e4de4c-549d-42e3-98e7-3357f9de426a" class="numbered-list" start="9"><li>Головко В.А. Нейронные сети: обучение, организация и применение. - М.: ИПРЖР, 2001.</li></ol><ol type="1" id="f1ccbb04-3598-4ad2-873a-d2f6629e4f8c" class="numbered-list" start="10"><li>Рутковская Д., Пилиньский М., Рутковский Л. Нейронные сети, генетические алгоритмы и нечеткие системы. - М.: Горячая линия-Телеком, 2006.</li></ol><p id="df23bb91-9855-4268-8354-e2c5aab47fb2" class="">9. Приложения:
+9.1 Распознавание образов</p><figure id="6af7de9f-07d0-4283-a1f4-dbcb05828525" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/scale_1200.jpeg"><img style="width:1200px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/scale_1200.jpeg"/></a></figure><p id="9d0cc6cc-0af5-4b57-b41d-e0d2e718caae" class="">
+9.2 Улучшение качества изображений</p><figure id="215a89e7-df4a-4512-9fc1-7b9fa46cde7f" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/i.jpeg"><img style="width:480px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/i.jpeg"/></a></figure><p id="03214ba6-4652-41ac-98cd-4e70894cd94c" class="">9.3 Изображения созданные нейросетью и запросы к ним:
+9.3.1 Тропический дом</p><figure id="0d3b6b8f-b7c7-44ae-ab93-39791d737dc4" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/87695e81-ba37-4e42-be72-bc8297f31d55.jpeg"><img style="width:1024px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/87695e81-ba37-4e42-be72-bc8297f31d55.jpeg"/></a></figure><figure id="0be1a726-966e-46ef-b48d-d851e0c6140a" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/4b1aca4a-0ec3-4c7c-9e2a-7da16046658e.jpeg"><img style="width:1024px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/4b1aca4a-0ec3-4c7c-9e2a-7da16046658e.jpeg"/></a></figure><figure id="99c02d6c-7e3e-40e8-bb7c-5f09207428e2" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/8a4d43a4-f090-4380-8627-db0554c24af8.jpeg"><img style="width:1024px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/8a4d43a4-f090-4380-8627-db0554c24af8.jpeg"/></a></figure><figure id="8bbc7e15-1d26-4b21-9dc1-656a7d6bb598" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/b29002e4-5362-4b4c-a4c6-66caf30af55d.jpeg"><img style="width:1024px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/b29002e4-5362-4b4c-a4c6-66caf30af55d.jpeg"/></a></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e6fd5962-a177-417d-811f-a35e0c9a7cb6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Архитектурный рендеринг, Природа, Безмятежность, Современный, экологичный домик на дереве, построенный в пышном тропическом лесу, органично интегрирующийся с окружающей средой, Тропический лес, архитектурный рендеринг, природа, домик на дереве, экологичный, тропический лес, интеграция</div></figure><p id="c080c57c-d2f6-48bb-aa6e-1417fd32ccaa" class="">9.3.2 Сладкий салат</p><figure id="1834655c-1a9f-42c9-a5a8-2761e83e9c2a" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123642_340.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123642_340.jpg"/></a></figure><figure id="306918a9-60a3-4e18-9708-ad2aa8058b23" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123644_765.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123644_765.jpg"/></a></figure><figure id="3018be7a-4c68-4a70-8ff6-8b9ee93b11fc" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123647_197.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123647_197.jpg"/></a></figure><figure id="ae2b13e7-e424-44e9-85fe-61ebd3dc42e4" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123649_668.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123649_668.jpg"/></a></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6122a881-1b24-4268-8ae4-0018d491a1e5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Шоколадный салат, зефир, ягоды, Сливочный, Карамель, крупный план, профессиональная фотография</div></figure><p id="98b01321-6bcc-4daf-9caa-d1b26a1dca18" class="">9.3.3 Комноты в стиле Вилли Вонки</p><figure id="b0cce4aa-ad85-4e7f-b11b-d30b8cd1ca31" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123756_452.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123756_452.jpg"/></a></figure><figure id="c43f91e7-1108-465d-b9c6-eb90142b3bb9" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123759_124.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123759_124.jpg"/></a></figure><figure id="ffc1ebd4-0ba9-4fda-8a34-1ab4edd5b6df" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123802_913.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123802_913.jpg"/></a></figure><figure id="b5a55d6e-aa74-4487-85a3-2d91c84d9138" class="image"><a href="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123804_820.jpg"><img style="width:853px" src="%D0%9D%D0%B5%D0%B8%CC%86%D1%80%D0%BE%D1%81%D0%B5%D1%82%D0%B8%20cc7530204b954eddac449887c2cea1c4/IMG_20230715_123804_820.jpg"/></a></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="7c60b10c-a89d-463b-865c-e9ca56f370cf"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">интерьер Вилли Вонки</div></figure></div></article></body></html>
